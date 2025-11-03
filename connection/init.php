@@ -16,8 +16,7 @@ require_once __DIR__ . '/functions.php';
 // Incluir la conexión a la base de datos
 require_once __DIR__ . '/connection.php';
 
-if (empty($noRequireAuth) && !isset($_SESSION['usuario'])) {
+if (empty($noRequireAuth) && !isset($_SESSION['user'])) {
     $projectName = basename(dirname(__DIR__));
     redirect("/$projectName/auth/login.php");
 }
-

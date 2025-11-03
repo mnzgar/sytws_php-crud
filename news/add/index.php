@@ -12,8 +12,8 @@ $flash_old = getSessionParam('flash_old');
 unset($_SESSION['flash_errors'], $_SESSION['flash_old']);
 
 // Permitir que los valores viniendo de errores previos se muestren (GET o REQUEST)
-$title = $flash_old['title'] ?? getRequestParam('title');
-$area = $flash_old['area'] ?? getRequestParam('area');
+$title = $flash_old['title'] ?? '';
+$area = $flash_old['area'] ?? '';
 
 // Cargar áreas para el select
 $areas = getNewsAreas($connection);

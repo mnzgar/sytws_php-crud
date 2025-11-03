@@ -1,6 +1,5 @@
 <?php
 
-$noRequireAuth = true;
 require_once __DIR__ . '/../connection/init.php';
 
 /** @var mysqli $connection */
@@ -10,6 +9,8 @@ $flash_errors  = getSessionParam('flash_errors');
 
 // Borrar flash después de mostrar
 unset($_SESSION['flash_success'], $_SESSION['flash_errors']);
+
+$user = getSessionParam('user');
 
 // Obtenemos los parámetros de búsqueda
 $text = getRequestParam('text');
@@ -45,7 +46,17 @@ $rr = $connection->query($sql);
 </head>
 <body class="p-4">
 <div class="container">
-    <h1 class="mb-4">Noticias</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="mb-0">Noticias</h1>
+            <small class="text-muted">
+                Conectado como <strong><?= e($user) ?></strong>
+            </small>
+        </div>
+        <a href="../auth/logout.php" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+        </a>
+    </div>
 
     <form class="row g-3 mb-4" action="index.php" method="get">
         <div class="col-auto">
