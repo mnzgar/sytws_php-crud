@@ -73,7 +73,7 @@ if ($stmt) {
         </a>
     </div>
 
-    <form class="row g-3 mb-4" action="index.php" method="get">
+    <form class="row g-3 mb-4" action="index.php" method="post">
         <div class="col-auto">
             <label class="visually-hidden" for="text">Texto</label>
             <input id="text" name="text" type="text" class="form-control" placeholder="Texto a localizar" value="<?= e($text) ?>">
