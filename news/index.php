@@ -64,13 +64,17 @@ if ($stmt) {
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="mb-0">Noticias</h1>
-            <small class="text-muted">
-                Conectado como <strong><?= e($user) ?></strong>
-            </small>
+            <?php if ($user): ?>
+                <small class="text-muted">
+                    Conectado como <strong><?= e($user) ?></strong>
+                </small>
+            <?php endif; ?>
         </div>
-        <a href="../auth/logout.php" class="btn btn-outline-secondary">
-            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
-        </a>
+        <?php if ($user): ?>
+            <a href="../auth/logout.php" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+            </a>
+        <?php endif; ?>
     </div>
 
     <form class="row g-3 mb-4" action="index.php" method="post">
