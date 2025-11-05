@@ -1,9 +1,4 @@
 <?php
-/**
- * connection/connection.php
- * -------------------------
- * Establece la conexión a la base de datos.
- */
 
 $connection = new mysqli('localhost', 'root', '', 'php-crud_cpganoticias');
 if ($connection->connect_errno) {

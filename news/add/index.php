@@ -4,18 +4,13 @@ require_once __DIR__ . '/../../connection/init.php';
 
 /** @var mysqli $connection */
 
-// Leer mensajes 'flash' de la sesión (si existen)
 $flash_errors = getSessionParam('flash_errors');
 $flash_old = getSessionParam('flash_old');
-
-// Borrar flash después de leer
 unset($_SESSION['flash_errors'], $_SESSION['flash_old']);
 
-// Permitir que los valores viniendo de errores previos se muestren (GET o REQUEST)
 $title = $flash_old['title'] ?? '';
 $area = $flash_old['area'] ?? '';
 
-// Cargar áreas para el select
 $areas = getNewsAreas($connection);
 
 ?>

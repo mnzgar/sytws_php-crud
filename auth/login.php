@@ -1,18 +1,13 @@
 <?php
 
-// Permite acceder sin estar logueado
 $noRequireAuth = true;
 require_once __DIR__ . '/../connection/init.php';
 
-// Leer mensajes 'flash' de la sesión (si existen)
 $flash_success = getSessionParam('flash_success');
 $flash_errors = getSessionParam('flash_errors');
 $flash_old = getSessionParam('flash_old');
-
-// Borrar flash después de leer
 unset($_SESSION['flash_success'], $_SESSION['flash_errors'], $_SESSION['flash_old']);
 
-// Permitir que los valores viniendo de errores previos se muestren (GET o REQUEST)
 $username = $flash_old['username'] ?? '';
 
 ?>

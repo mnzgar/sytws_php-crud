@@ -1,9 +1,4 @@
 <?php
-/**
- * connection/functions.php
- * -------------------------
- * Funciones auxiliares comunes del proyecto.
- */
 
 function getRequestParam(string $param, $default = '') {
     return $_REQUEST[$param] ?? $default;

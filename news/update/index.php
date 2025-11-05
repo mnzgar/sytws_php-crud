@@ -4,20 +4,15 @@ require_once __DIR__ . '/../../connection/init.php';
 
 /** @var mysqli $connection */
 
-// Obtener el ID de la noticia a editar
 $id = (int)getRequestParam('id');
 if ($id <= 0) {
     redirect('../index.php');
 }
 
-// Leer mensajes 'flash' de la sesión (si existen)
 $flash_errors = getSessionParam('flash_errors');
 $flash_old = getSessionParam('flash_old');
-
-// Borrar flash después de leer
 unset($_SESSION['flash_errors'], $_SESSION['flash_old']);
 
-// Cargar datos de la noticia desde la DB
 $stmt = $connection->prepare("SELECT titulo, idarea FROM noticias WHERE id = ?");
 if ($stmt) {
     $stmt->bind_param('i', $id);
@@ -29,11 +24,9 @@ if ($stmt) {
     redirect('../index.php');
 }
 
-// Valores para mostrar en el formulario
 $title = $flash_old['title'] ?? $news['titulo'];
-$area  = $flash_old['area']  ?? $news['idarea'];
+$area  = $flash_old['area'] ?? $news['idarea'];
 
-// Cargar áreas para el select
 $areas = getNewsAreas($connection);
 
 ?>

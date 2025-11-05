@@ -6,32 +6,47 @@ require_once __DIR__ . '/../connection/init.php';
 
 $flash_success = getSessionParam('flash_success');
 $flash_errors  = getSessionParam('flash_errors');
-
-// Borrar flash después de mostrar
 unset($_SESSION['flash_success'], $_SESSION['flash_errors']);
 
 $user = getSessionParam('user');
 
-// Obtenemos los parámetros de búsqueda
 $text = getRequestParam('text');
 $area = getRequestParam('area');
 
-// Cargar áreas (id => nombre)
 $areas = getNewsAreas($connection);
 
-// Construir consulta para noticias
+$params = [];
+$types = '';
 $sql = "SELECT * FROM noticias WHERE 1=1";
 if ($text !== '') {
-    $textEsc = $connection->real_escape_string($text);
-    $sql .= " AND titulo LIKE '%$textEsc%'";
+    $sql .= " AND titulo LIKE ?";
+    $params[] = '%' . $text . '%';
+    $types .= 's';
 }
 if ($area !== '') {
-    $areaInt = (int)$area;
-    $sql .= " AND idarea = $areaInt";
+    $sql .= " AND idarea = ?";
+    $params[] = (int)$area;
+    $types .= 'i';
 }
 $sql .= " ORDER BY id DESC";
 
-$rr = $connection->query($sql);
+$rr = false;
+$stmt = $connection->prepare($sql);
+if ($stmt) {
+    if (!empty($params)) {
+        $bind_params = [];
+        $bind_params[] = $types;
+        foreach ($params as $k => $v) {
+            $bind_params[] = & $params[$k];
+        }
+        call_user_func_array([$stmt, 'bind_param'], $bind_params);
+    }
+    $stmt->execute();
+    $rr = $stmt->get_result();
+    $stmt->close();
+} else {
+    $rr = false;
+}
 
 ?>
 

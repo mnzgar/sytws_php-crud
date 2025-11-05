@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['boton'])) {
     $area = getRequestParam('area');
     $errors = [];
 
-    // Validaciones
     if ($title === '') {
         $errors[] = 'El título es obligatorio.';
     }
@@ -34,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['boton'])) {
         }
     }
 
-    // Si hay errores, guardar en sesión para mostrarlos en el formulario
     if (!empty($errors)) {
         $_SESSION['flash_errors'] = $errors;
         $_SESSION['flash_old'] = ['title' => $title, 'area' => $area];
@@ -42,5 +40,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['boton'])) {
     }
 }
 
-// Si se accede sin POST, redirigir al formulario
 redirect('index.php');
